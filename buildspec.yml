@@ -12,7 +12,7 @@ phases:
       - apt-get update
       - apt-get install -y trivy
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - REPOSITORY_URI=<id>.dkr.ecr.us-east-1.amazonaws.com/alpine
+      - REPOSITORY_URI=779593258376.dkr.ecr.ap-southeast-1.amazonaws.com/alpine
   build:
     commands:
       - docker build -t $REPOSITORY_URI:success .
