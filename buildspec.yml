@@ -9,7 +9,6 @@ phases:
       - ls -la
       - wget -q --user=demo@aquasec.com --password=9aV6xpQE https://download.aquasec.com/scanner/4.6.0/scannercli
       - chmod +x scannercli
-      - echo deb https://aquasecurity.github.io/trivy-repo/deb bionic main | tee -a /etc/apt/sources.list.d/trivy.list
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - REPOSITORY_URI=779593258376.dkr.ecr.ap-southeast-1.amazonaws.com/alpine
       - ls -la
