@@ -10,12 +10,12 @@ phases:
       - wget -q --user=demo@aquasec.com --password=9aV6xpQE https://download.aquasec.com/scanner/4.6.0/scannercli
       - chmod +x scannercli
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - REPOSITORY_URI=779593258376.dkr.ecr.ap-southeast-1.amazonaws.com/alpine
+      - REPOSITORY_URI=779593258376.dkr.ecr.ap-southeast-1.amazonaws.com/alpine:$CODEBUILD_BUILD_NUMBER
       - ls -la
   build:
     commands:
-      - docker build -t $REPOSITORY_URI:success .
-      - ./scannercli scan -H http://demo1102-vm0.aquasec.com -U api -P AquaApiAcccess --local $REPOSITORY_URI:success
+      - docker build -t $REPOSITORY_URI:$CODEBUILD_BUILD_NUMBER .
+      - ./scannercli scan -H http://demo1102-vm0.aquasec.com -U api -P AquaApiAcccess --local $REPOSITORY_URI:$CODEBUILD_BUILD_NUMBER
   post_build:
     commands:
-      - docker push $REPOSITORY_URI:success
+      - docker push $REPOSITORY_URI:$CODEBUILD_BUILD_NUMBER
