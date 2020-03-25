@@ -6,13 +6,12 @@ phases:
         docker: 18
   pre_build:
     commands:
-      - ls -la
+      - echo "++ Build number $CODEBUILD_BUILD_NUMBER now ++"
       - wget -q --user=demo@aquasec.com --password=9aV6xpQE https://download.aquasec.com/scanner/4.6.0/scannercli
       - chmod +x scannercli
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - REPOSITORY_URI=779593258376.dkr.ecr.ap-southeast-1.amazonaws.com/alpine:$CODEBUILD_BUILD_NUMBER
+      - REPOSITORY_URI=779593258376.dkr.ecr.ap-southeast-1.amazonaws.com/alpine
       - ls -la
-      - echo $CODEBUILD_BUILD_NUMBER
   build:
     commands:
       - docker build -t $REPOSITORY_URI:$CODEBUILD_BUILD_NUMBER .
