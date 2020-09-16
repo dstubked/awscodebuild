@@ -7,7 +7,7 @@ phases:
   pre_build:
     commands:
       - echo "++ Build number $CODEBUILD_BUILD_NUMBER now ++"
-      - wget -q --user=demo@aquasec.com --password=xxxxxxxx https://download.aquasec.com/scanner/5.0.0/scannercli
+      - wget -q --user=demo@aquasec.com --password=9aV6xpQE https://download.aquasec.com/scanner/5.0.0/scannercli
       - chmod +x scannercli
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - REPOSITORY_URI=779593258376.dkr.ecr.ap-southeast-1.amazonaws.com/alpine
