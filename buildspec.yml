@@ -15,7 +15,7 @@ phases:
   build:
     commands:
       - docker build -t $REPOSITORY_URI:$CODEBUILD_BUILD_NUMBER .
-      - ./scannercli scan -H http://demo1653-vm0.aquasec.com -U api2 -P AquaApiAcccess --local $REPOSITORY_URI:$CODEBUILD_BUILD_NUMBER --html --htmlfile results.html --register --registry "779593258376.dkr.ecr.ap-southeast-1.amazonaws.com"
+      - ./scannercli scan -H http://demo1653-vm0.aquasec.com -U api2 -P AquaApiAcccess --local $REPOSITORY_URI:$CODEBUILD_BUILD_NUMBER --register --registry "779593258376.dkr.ecr.ap-southeast-1.amazonaws.com"
   post_build:
     commands:
       - docker push $REPOSITORY_URI:$CODEBUILD_BUILD_NUMBER
