@@ -17,7 +17,7 @@ phases:
   build:
     commands:
       - docker build -t $REPOSITORY_URI:$CODEBUILD_BUILD_NUMBER .
-      - ./scannercli scan -H http://demo1653-vm0.aquasec.com -U api2 -P AquaApiAcccess --local $REPOSITORY_URI:$CODEBUILD_BUILD_NUMBER --register --registry "779593258376.dkr.ecr.ap-southeast-1.amazonaws.com"
+      - ./scannercli scan -H http://demo1653-vm0.aquasec.com -U api2 -P AquaApiAcccess --local $REPOSITORY_URI:$CODEBUILD_BUILD_NUMBER --htmlfile results.html --register --registry "779593258376.dkr.ecr.ap-southeast-1.amazonaws.com"
       - ./aquactl inject --src-image $REPOSITORY_URI:$CODEBUILD_BUILD_NUMBER --dst-image $REPOSITORY_URI:ME --microenforcer-binary microenforcer -G
   post_build:
     commands:
@@ -25,3 +25,6 @@ phases:
       - ls -la
       - docker images
       - cat Dockerfile.779593258376.dkr.ecr.ap-southeast-1.amazonaws.com-alpine-ME
+  artifacts:
+    files:
+      - results.html
