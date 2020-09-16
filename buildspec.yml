@@ -25,6 +25,6 @@ phases:
       - ls -la
       - docker images
       - cat Dockerfile.779593258376.dkr.ecr.ap-southeast-1.amazonaws.com-alpine-ME
- artifacts:
-   files:
-     - results.html
+artifacts:
+  files:
+    - results.html
