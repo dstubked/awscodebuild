@@ -12,11 +12,15 @@ phases:
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - REPOSITORY_URI=779593258376.dkr.ecr.ap-southeast-1.amazonaws.com/alpine
       - ls -la
+      - wget https://get.aquasec.com/aquactl/stable/aquactl
+      - chmod +x aquactl
   build:
     commands:
       - docker build -t $REPOSITORY_URI:$CODEBUILD_BUILD_NUMBER .
       - ./scannercli scan -H http://demo1653-vm0.aquasec.com -U api2 -P AquaApiAcccess --local $REPOSITORY_URI:$CODEBUILD_BUILD_NUMBER --register --registry "779593258376.dkr.ecr.ap-southeast-1.amazonaws.com"
+      - ./aquactl inject --src-image $REPOSITORY_URI:$CODEBUILD_BUILD_NUMBER --dst-image $REPOSITORY_URI:ME --microenforcer-binary microenforcer -G
   post_build:
     commands:
-      - docker push $REPOSITORY_URI:$CODEBUILD_BUILD_NUMBER
+      - docker push $REPOSITORY_URI:ME
       - ls -la
+      - docker images
